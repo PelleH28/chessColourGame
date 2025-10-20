@@ -40,7 +40,7 @@ public class Main {
                 }
             }
         }
-        System.out.println("Colours guessed correctly: " + score + "/" + total);
+        System.out.println("Score: " + score + "/" + total);
         System.out.println("bye");
     }
     public static String checkColour(int columnNumber, int rowNumber) {
