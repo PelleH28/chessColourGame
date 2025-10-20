@@ -1,0 +1,76 @@
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
+
+        int score = 0;
+        int total = 0;
+
+        System.out.println("welcome!");
+
+        while(true){
+            int number = random.nextInt(0, 63);
+
+            System.out.println("What is the colour of the following tile (b / w)? Enter q to quit");
+            String tile = getTile(number);
+            System.out.println(tile);
+
+            char columnLetter = tile.charAt(0);
+            int columnNumber = columnLetter - 'a' + 1;
+            int rowNumber = tile.charAt(1);
+            String guess = scanner.nextLine();
+
+            String colour = checkColour(columnNumber, rowNumber);
+            if(guess.equals("q")){
+                break;
+            } else{
+                if (guess.equals(colour)){
+                    System.out.println("correct");
+                    total++;
+                    score++;
+                } else{
+                    System.out.println("wrong");
+                    total++;
+                }
+            }
+        }
+        System.out.println("Colours guessed correctly: " + score + "/" + total);
+        System.out.println("bye");
+    }
+    public static String checkColour(int columnNumber, int rowNumber) {
+        if (columnNumber % 2 == 0) {
+            if (rowNumber % 2 == 0) {
+                return "b";
+            } else {
+                return "w";
+            }
+        } else {
+            if (rowNumber % 2 == 0) {
+                return "w";
+            } else {
+                return "b";
+            }
+        }
+    }
+    public static String getTile(int number){
+        ArrayList<String> tiles = new ArrayList<>();
+
+        for(char file = 'a'; file <= 'h'; file++){
+            for(int rank = 1; rank <= 8; rank++){
+                tiles.add(file + String.valueOf(rank));
+            }
+        }
+        return tiles.get(number);
+    }
+}
+
+
+
+
+
