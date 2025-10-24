@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Timer;
 
 public class Main {
 
@@ -11,6 +12,7 @@ public class Main {
 
         int score = 0;
         int total = 0;
+        double totalTime = 0;
 
         System.out.println("welcome!");
 
@@ -21,26 +23,35 @@ public class Main {
             String tile = getTile(number);
             System.out.println(tile);
 
+            double startTime = System.currentTimeMillis();
+            String guess = scanner.nextLine();
+            double stopTime = System.currentTimeMillis();
+            double reactionTime = (stopTime - startTime) / 1000;
+
             char columnLetter = tile.charAt(0);
             int columnNumber = columnLetter - 'a' + 1;
             int rowNumber = tile.charAt(1);
-            String guess = scanner.nextLine();
 
             String colour = checkColour(columnNumber, rowNumber);
             if(guess.equals("q")){
                 break;
-            } else{
+            } else if(guess.equals("b") || guess.equals("w")) {
                 if (guess.equals(colour)){
-                    System.out.println("correct");
+                    System.out.println("CORRECT     reaction time: " + String.format("%.2f", reactionTime) + " s");
                     total++;
                     score++;
+                    totalTime += reactionTime;
                 } else{
-                    System.out.println("wrong");
+                    System.out.println("wrong       reaction time: " + String.format("%.2f", reactionTime) + " s");
                     total++;
+                    totalTime += reactionTime;
                 }
+            } else{
+                System.out.println("enter valid response");
             }
         }
         System.out.println("Score: " + score + "/" + total);
+        System.out.println("Average reaction time: " + String.format("%.2f", (totalTime/total)) + " seconds");
         System.out.println("bye");
     }
     public static String checkColour(int columnNumber, int rowNumber) {
